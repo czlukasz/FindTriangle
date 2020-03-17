@@ -8,4 +8,5 @@ I've hope, that this project will be grow up during time, and it will have new f
 ## Technologies
 I was using Visual Studio, language: C#
 
-##
+## Status
+*Project is in progress...*
