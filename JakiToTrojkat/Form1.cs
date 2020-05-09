@@ -17,12 +17,19 @@ namespace JakiToTrojkat
             InitializeComponent();
         }
 
+        private static void OnWrongSidesKomunikat(WhichTriangle tr)
+        {
+            MessageBox.Show("Podano złe wartości długości boków,\n kliknij OK, a następnie popraw", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return;
+        }
         private void btnCheckTriangle_Click(object sender, EventArgs e)
         {
             lblAnglesKind.Text = "";
             lblSidesKind.Text = "";
+            WhichTriangle triangle = new WhichTriangle();
+            triangle.OnWrongSides += OnWrongSidesKomunikat;
             double[] sides = new double[] { double.Parse(txtSide0.Text), double.Parse(txtSide1.Text), double.Parse(txtSide2.Text) };
-            WhichTriangle triangle = new WhichTriangle(sides);
+            triangle.SetSides(sides);
             switch (triangle.WhichTriangleAngle())
             {
                 case AngleTriangle.ACUTE_A: 

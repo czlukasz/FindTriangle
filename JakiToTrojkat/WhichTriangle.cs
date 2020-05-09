@@ -6,11 +6,19 @@ using System.Threading.Tasks;
 
 namespace JakiToTrojkat
 {
+    internal delegate void OnWrongSidesEventDelegate(WhichTriangle tr);
     class WhichTriangle
     {
         private double[] sides;
 
-        public WhichTriangle(double[] sides)
+        public event OnWrongSidesEventDelegate OnWrongSides;
+
+        
+        public WhichTriangle()
+        {
+            
+        }
+        public void SetSides(double[] sides)
         {
             sortTabDouble(ref sides);
             if ((sides[0] + sides[1] > sides[2]) && sides[0] > 0 && sides[1] > 0 && sides[2] > 0)
@@ -19,11 +27,9 @@ namespace JakiToTrojkat
             }
             else
             {
-                //throw new WhichTriangleException(); //I do this later
-                this.sides = new double[] { 0.0, 0.0, 0.0 }; //only for few "minutes"
+                OnWrongSides?.Invoke(this);
             }
         }
-
         /**
          * param: array of double's items;
          * return: void;
