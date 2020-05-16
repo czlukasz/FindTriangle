@@ -16,20 +16,25 @@ namespace JakiToTrojkat
         {
             InitializeComponent();
         }
-
-        private static void OnWrongSidesKomunikat(WhichTriangle tr)
+        void OnWrongSidesKomunikat(WhichTriangle tr)
         {
             MessageBox.Show("Podano złe wartości długości boków,\n kliknij OK, a następnie popraw", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            return;
+            ClearTxtSide();
+        }
+        private void ClearTxtSide()
+        {
+            txtSide0.Text = "";
+            txtSide1.Text = "";
+            txtSide2.Text = "";
         }
         private void btnCheckTriangle_Click(object sender, EventArgs e)
         {
             lblAnglesKind.Text = "";
             lblSidesKind.Text = "";
+            double[] sides = new double[] { double.Parse(txtSide0.Text), double.Parse(txtSide1.Text), double.Parse(txtSide2.Text) };
             WhichTriangle triangle = new WhichTriangle();
             triangle.OnWrongSides += OnWrongSidesKomunikat;
-            double[] sides = new double[] { double.Parse(txtSide0.Text), double.Parse(txtSide1.Text), double.Parse(txtSide2.Text) };
-            triangle.SetSides(sides);
+            triangle.sides = sides;
             switch (triangle.WhichTriangleAngle())
             {
                 case AngleTriangle.ACUTE_A: 
@@ -42,7 +47,6 @@ namespace JakiToTrojkat
                     lblAnglesKind.Text = "To jest trójkąt prostokątny";
                     break;
             }
-
             switch (triangle.WhichTriangleSide())
             {
                 case SideTriangle.EQUILATERAL:

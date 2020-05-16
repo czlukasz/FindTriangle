@@ -8,11 +8,11 @@ namespace JakiToTrojkat
 {
     enum AngleTriangle
     {
-        RIGHT_A, ACUTE_A, OBTUSE_A
+        RIGHT_A, ACUTE_A, OBTUSE_A, ERROR_A
     }
 
     enum SideTriangle
     {
-        EQUILATERAL, ISOSCELES, MULTILATERAL
+        EQUILATERAL, ISOSCELES, MULTILATERAL, ERROR
     }
 }

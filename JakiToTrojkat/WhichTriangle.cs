@@ -9,25 +9,53 @@ namespace JakiToTrojkat
     internal delegate void OnWrongSidesEventDelegate(WhichTriangle tr);
     class WhichTriangle
     {
-        private double[] sides;
+        private double[] _sides;
+        private bool isValid = true;
 
         public event OnWrongSidesEventDelegate OnWrongSides;
 
-        
-        public WhichTriangle()
+        public WhichTriangle() { }
+        public WhichTriangle(double[] sides)
         {
-            
+            this.sides = sides;
         }
-        public void SetSides(double[] sides)
+        public double[] sides
         {
-            sortTabDouble(ref sides);
+            set
+            {
+                sortTabDouble(ref value);
+                if (IsValid(value))
+                {
+                    _sides = value;
+                }
+                else
+                {
+                    isValid = false;
+                    OnWrongSides?.Invoke(this);
+                }
+            }
+            get
+            {
+                return _sides;
+            }
+        }
+        /*
+         * return: bool
+         * this method verify that this sides are sides of triangle
+         */
+        public bool IsValid()
+        {
+            return IsValid(_sides);
+        }
+        private static bool IsValid(double[] sides)
+        {
             if ((sides[0] + sides[1] > sides[2]) && sides[0] > 0 && sides[1] > 0 && sides[2] > 0)
             {
-                this.sides = sides;
+                return true;
             }
             else
             {
-                OnWrongSides?.Invoke(this);
+                return false;
             }
         }
         /**
@@ -63,6 +91,7 @@ namespace JakiToTrojkat
          */ 
         public SideTriangle WhichTriangleSide()
         {
+            if(!this.isValid) { return SideTriangle.ERROR; }
             bool equalS0S1 = (sides[0].Equals(sides[1]));
             bool equalS1S2 = (sides[1].Equals(sides[2]));
             if (equalS0S1 && equalS1S2)
@@ -86,7 +115,8 @@ namespace JakiToTrojkat
          */
         public AngleTriangle WhichTriangleAngle()
         {
-            double difference = Math.Pow(sides[2], 2) - (Math.Pow(sides[0], 2) + Math.Pow(sides[1], 2));
+            if(!this.isValid) { return AngleTriangle.ERROR_A; }
+            double difference = Math.Pow(_sides[2], 2) - (Math.Pow(_sides[0], 2) + Math.Pow(_sides[1], 2));
             if (difference < 0)
             {
                 return AngleTriangle.ACUTE_A;
