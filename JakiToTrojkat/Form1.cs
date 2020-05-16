@@ -26,12 +26,23 @@ namespace JakiToTrojkat
             txtSide0.Text = "";
             txtSide1.Text = "";
             txtSide2.Text = "";
+            lblAnglesKind.Text = "";
+            lblSidesKind.Text = "";
         }
         private void btnCheckTriangle_Click(object sender, EventArgs e)
         {
             lblAnglesKind.Text = "";
             lblSidesKind.Text = "";
-            double[] sides = new double[] { double.Parse(txtSide0.Text), double.Parse(txtSide1.Text), double.Parse(txtSide2.Text) };
+            double[] sides;
+            try
+            {
+                sides = new double[] { double.Parse(txtSide0.Text), double.Parse(txtSide1.Text), double.Parse(txtSide2.Text) };
+            }
+            catch (FormatException)
+            {
+                ClearTxtSide();
+                return;
+            }
             WhichTriangle triangle = new WhichTriangle();
             triangle.OnWrongSides += OnWrongSidesKomunikat;
             triangle.sides = sides;
@@ -59,6 +70,11 @@ namespace JakiToTrojkat
                     lblSidesKind.Text = "To jest trójkąt różnoboczny";
                     break;
             }
+        }
+
+        private void btnClearSides_Click(object sender, EventArgs e)
+        {
+            this.ClearTxtSide();
         }
     }
 }

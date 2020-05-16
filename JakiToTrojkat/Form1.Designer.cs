@@ -40,6 +40,7 @@
             this.btnCheckTriangle = new System.Windows.Forms.Button();
             this.lblSidesKind = new System.Windows.Forms.Label();
             this.lblAnglesKind = new System.Windows.Forms.Label();
+            this.btnClearSides = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtSide0
@@ -161,12 +162,24 @@
             this.lblAnglesKind.Size = new System.Drawing.Size(0, 29);
             this.lblAnglesKind.TabIndex = 11;
             // 
+            // btnClearSides
+            // 
+            this.btnClearSides.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btnClearSides.Location = new System.Drawing.Point(30, 373);
+            this.btnClearSides.Name = "btnClearSides";
+            this.btnClearSides.Size = new System.Drawing.Size(283, 49);
+            this.btnClearSides.TabIndex = 12;
+            this.btnClearSides.Text = "Wyczyść pola";
+            this.btnClearSides.UseVisualStyleBackColor = true;
+            this.btnClearSides.Click += new System.EventHandler(this.btnClearSides_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnClearSides);
             this.Controls.Add(this.lblAnglesKind);
             this.Controls.Add(this.lblSidesKind);
             this.Controls.Add(this.btnCheckTriangle);
@@ -200,6 +213,7 @@
         private System.Windows.Forms.Button btnCheckTriangle;
         private System.Windows.Forms.Label lblSidesKind;
         private System.Windows.Forms.Label lblAnglesKind;
+        private System.Windows.Forms.Button btnClearSides;
     }
 }
 
